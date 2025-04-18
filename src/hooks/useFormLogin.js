@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { authService } from "../services/authService";
 
-export const useFormLogin = () => {
+export const useFormLogin = (navigate) => {
 
     const initialFormData = {
         email: "",
@@ -64,11 +64,13 @@ export const useFormLogin = () => {
         try {
             const response = await authService.login(formData);
             setIsSuccess(true);
-            // navigate();
+            
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('role', response.data.user.role.id_role);
             resetForm();
+            navigate("/dashboard");
         } catch (error) {
-            console.log("Error en el login: ", error);
+            console.log("Error en el login: ", error.status);
             setErrors({ general: "Ocurrió un error" });
         } finally {
             setIsLoading(false);

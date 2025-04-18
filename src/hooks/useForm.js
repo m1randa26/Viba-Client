@@ -57,8 +57,10 @@ export const useForm = (navigate) => {
 
         // Validacion de telefono
         const phoneRegex = /^\d{9,15}$/
-        if (formData.phone && !phoneRegex.test(formData.phone.replace(/\s+/g, ""))) {
-            newErrors.phone = "El número de teléfono no es válido";
+        if (!formData.phone) {
+            newErrors.phone = "El teléfono es obligatorio"
+        } else if (formData.phone && !phoneRegex.test(formData.phone.replace(/\s+/g, ""))) {
+            newErrors.phone = "El teléfono de teléfono no es válido";
         }
 
         setErrors(newErrors);
@@ -106,7 +108,7 @@ export const useForm = (navigate) => {
             await authService.register(payload);
             setIsSuccess(true);
             resetForm();
-            navigate("/login");
+            navigate("/dashboard");
         } catch (error) {
             console.log("Error al registrar:", error);
             setErrors({general: "Ocurrio un error al registrar."});
