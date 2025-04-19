@@ -2,6 +2,7 @@ import { useState } from "react";
 import UserItem from "../../components/UserItem";
 import UserList from "../../components/UserList";
 import { Link } from "react-router-dom";
+import GroupList from "../../components/GroupList";
 
 const Dashboard = () => {
 
@@ -38,8 +39,16 @@ const Dashboard = () => {
             </button>
           </Link>
         )}
+        {activeTab === "Grupos" && (
+          <Link to="/register-group">
+            <button className="cursor-pointer mb-5 rounded-md border border-green-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-green-600 hover:text-white hover:bg-green-800 hover:border-green-800 focus:text-white focus:bg-green-800 focus:border-green-800 active:border-green-800 active:text-white active:bg-green-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+              Crear grupo
+            </button>
+          </Link>
+        )}
 
         {activeTab === "Usuarios" && <UserList />}
+        {activeTab === "Grupos" && <GroupList /> }
       </div>
     </div>
   )

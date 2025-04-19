@@ -43,10 +43,10 @@ const UserItem = ({ user, onDelete }) => {
                     <p className='font-semibold text-gray-700'>{validateRole(user.role.nombre)}</p>
                 </div>
 
-                <div className='flex justify-end items-center'>
-                    {/* <button className="cursor-pointer rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-800 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-                        Editar
-                    </button> */}
+                <div className='flex justify-between items-center'>
+                    <button className="cursor-pointer rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-800 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                        Asignar
+                    </button>
                     <button onClick={handleDelete} className="cursor-pointer rounded-md border border-red-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-red-600 hover:text-white hover:bg-red-800 hover:border-red-800 focus:text-white focus:bg-red-800 focus:border-red-800 active:border-red-800 active:text-white active:bg-red-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
                         Eliminar
                     </button>

@@ -8,6 +8,7 @@ import Dashboard from './pages/admin/Dashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Unauthorized from './pages/Unauthorized.jsx'
 import PublicRoute from './components/PublicRoute.jsx'
+import RegisterGroup from './pages/admin/RegisterGroup.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         <Route element={<ProtectedRoute allowedRoles={[1]} />}>
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/register-group' element={<RegisterGroup />} />
         </Route>
         {/* <Route path='/edit-user' element={<EditUser />} /> */}
 

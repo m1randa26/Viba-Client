@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { userService } from "../services/userService";
 import UserItem from "./UserItem";
 import { toast, ToastContainer } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 
 const UserList = () => {
 
@@ -36,7 +37,7 @@ const UserList = () => {
         }
     }
 
-    if (isLoading) return <p>Cargando</p>;
+    if (isLoading) return <LoadingSpinner />
 
     return (
         <ul>
