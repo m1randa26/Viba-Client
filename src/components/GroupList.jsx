@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import GroupItem from './GroupItem'
 import { groupService } from '../services/groupService';
 import LoadingSpinner from './LoadingSpinner';
+import { toast, ToastContainer } from 'react-toastify';
 
 const GroupList = () => {
 
@@ -24,20 +25,31 @@ const GroupList = () => {
     fetchGroups();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await groupService.deleteGroup(id);
+      toast.success("Grupo eliminado");
+      setGroups(prevGroups => prevGroups.filter(group => group.idGroup !== id));
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  }
+
   if (isLoading) return <LoadingSpinner />
 
   return (
     <div className='grid grid-cols-3 gap-4'>
-      {groups.map(group => (
+      {(!groups || groups.length === 0) &&
+        <p className='text-center font-semibold text-gray-700 text-2xl col-span-3'>No hay grupos que mostrar</p>
+      }
+      {groups && groups.map(group => (
         <GroupItem
-          name={group.name}
-          municipality={group.municipality}
-          colony={group.colony}
-          adminName={group.groupAdmin.name}
-          email={group.groupAdmin.email}
-          phone={group.groupAdmin.phone}
+          key={group.id}
+          group={group}
+          onDelete={handleDelete}
         />
       ))}
+      <ToastContainer theme='colored' />
     </div>
   )
 }

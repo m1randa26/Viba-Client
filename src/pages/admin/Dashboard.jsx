@@ -3,12 +3,13 @@ import UserItem from "../../components/UserItem";
 import UserList from "../../components/UserList";
 import { Link } from "react-router-dom";
 import GroupList from "../../components/GroupList";
+import EventTypesList from "../../components/EventTypesList";
 
 const Dashboard = () => {
 
   const [activeTab, setActiveTab] = useState("Usuarios");
 
-  const tabs = ["Usuarios", "Grupos", "Eventos"];
+  const tabs = ["Usuarios", "Grupos", "Tipos de eventos"];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -46,9 +47,17 @@ const Dashboard = () => {
             </button>
           </Link>
         )}
+        {activeTab === "Tipos de eventos" && (
+          <Link to="/register-event-type">
+            <button className="cursor-pointer mb-5 rounded-md border border-green-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-green-600 hover:text-white hover:bg-green-800 hover:border-green-800 focus:text-white focus:bg-green-800 focus:border-green-800 active:border-green-800 active:text-white active:bg-green-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+              Crear tipo de evento
+            </button>
+          </Link>
+        )}
 
         {activeTab === "Usuarios" && <UserList />}
         {activeTab === "Grupos" && <GroupList /> }
+        {activeTab === "Tipos de eventos" && <EventTypesList /> }
       </div>
     </div>
   )

@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Unauthorized from './pages/Unauthorized.jsx'
 import PublicRoute from './components/PublicRoute.jsx'
 import RegisterGroup from './pages/admin/RegisterGroup.jsx'
+import RegisterEventType from './pages/admin/RegisterEventType.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/register-group' element={<RegisterGroup />} />
+          <Route path='/register-event-type' element={<RegisterEventType />} />
         </Route>
         {/* <Route path='/edit-user' element={<EditUser />} /> */}
 

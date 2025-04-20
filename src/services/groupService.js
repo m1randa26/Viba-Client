@@ -6,4 +6,5 @@ export const groupService = {
     getGroups: () => axios.get(API_URL, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }),
     createGroup: (data) =>
         axios.post(API_URL, data, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }),
+    deleteGroup: (id) => axios.delete(API_URL + id, { headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` } }),
 }

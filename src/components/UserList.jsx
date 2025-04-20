@@ -44,7 +44,7 @@ const UserList = () => {
             {users.map(user => (
                 <UserItem key={user.idUser} user={user} onDelete={handleDeleteUser} />
             ))}
-            <ToastContainer />
+            <ToastContainer theme="colored" />
         </ul>
     )
 

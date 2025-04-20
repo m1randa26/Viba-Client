@@ -10,7 +10,8 @@ const Register = () => {
         handleSubmit,
         formData,
         handleChange,
-        errors
+        errors,
+        isLoading,
     } = useForm(navigate);
 
     const handleGoBack = () => {
@@ -128,9 +129,15 @@ const Register = () => {
                     {/* Botón de registro */}
                     <div className="mt-8 flex flex-col items-center justify-center">
                         <button
-                            className="w-64 border-2 border-green-500 hover:bg-green-400 hover:text-white hover:border-transparent text-green-500 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
-                            type="submit">
-                            Registrar
+                            type="submit"
+                            disabled={isLoading}
+                            className={`w-64 border-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer transition-all
+                                ${isLoading
+                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                    : 'border-green-500 text-green-500 hover:bg-green-400 hover:text-white hover:border-transparent'
+                                }`}
+                        >
+                            {isLoading ? 'Registrando...' : 'Registrar'}
                         </button>
                     </div>
                 </form>
