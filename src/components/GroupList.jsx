@@ -4,7 +4,7 @@ import { groupService } from '../services/groupService';
 import LoadingSpinner from './LoadingSpinner';
 import { toast, ToastContainer } from 'react-toastify';
 
-const GroupList = () => {
+const GroupList = ({ buttonAvailable, isGroupAdmin }) => {
 
   const [groups, setGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,8 +13,20 @@ const GroupList = () => {
     const fetchGroups = async () => {
       try {
         const response = await groupService.getGroups();
-        setGroups(response.data.data);
-        console.log(response.data.data);
+        
+        let fetchedGroups = response.data.data;
+
+        const userRole = localStorage.getItem("roleName");
+        const userId = parseInt(localStorage.getItem("userId"));
+
+        if (userRole === "ADMIN_GROUP_ROLE") {
+          // Filtrar solo los grupos que administra este usuario
+          fetchedGroups = fetchedGroups.filter(
+            group => group.groupAdmin.idUser === userId
+          );
+        }
+
+        setGroups(fetchedGroups);
       } catch (error) {
         console.log("Error: ", error);
       } finally {
@@ -38,7 +50,7 @@ const GroupList = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className='grid grid-cols-3 gap-4'>
+    <div className='grid grid-cols-2 gap-3'>
       {(!groups || groups.length === 0) &&
         <p className='text-center font-semibold text-gray-700 text-2xl col-span-3'>No hay grupos que mostrar</p>
       }
@@ -46,6 +58,8 @@ const GroupList = () => {
         <GroupItem
           key={group.id}
           group={group}
+          button={buttonAvailable}
+          isGroupAdmin={isGroupAdmin}
           onDelete={handleDelete}
         />
       ))}

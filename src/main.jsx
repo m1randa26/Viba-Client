@@ -10,6 +10,7 @@ import Unauthorized from './pages/Unauthorized.jsx'
 import PublicRoute from './components/PublicRoute.jsx'
 import RegisterGroup from './pages/admin/RegisterGroup.jsx'
 import RegisterEventType from './pages/admin/RegisterEventType.jsx'
+import DashboardGroup from './pages/grupoAdmin/DashboardGroup'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -33,6 +34,11 @@ createRoot(document.getElementById('root')).render(
           <Route path='/register-event-type' element={<RegisterEventType />} />
         </Route>
         {/* <Route path='/edit-user' element={<EditUser />} /> */}
+
+        {/* Rutas para admin group */}
+        <Route element={<ProtectedRoute allowedRoles={[2]} />}>
+          <Route path='/dashboard-group' element={<DashboardGroup />} />
+        </Route>
 
       </Routes>
     </BrowserRouter>

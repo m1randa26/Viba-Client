@@ -1,16 +1,13 @@
 import { useState } from "react";
-import UserItem from "../../components/UserItem";
-import UserList from "../../components/UserList";
+import LogOutButton from "../../components/LogOutButton";
 import { Link } from "react-router-dom";
 import GroupList from "../../components/GroupList";
-import EventTypesList from "../../components/EventTypesList";
-import LogOutButton from "../../components/LogOutButton";
 
-const Dashboard = () => {
+const DashboardGroup = () => {
 
-  const [activeTab, setActiveTab] = useState("Usuarios");
+  const [activeTab, setActiveTab] = useState("Grupos");
 
-  const tabs = ["Usuarios", "Grupos", "Tipos de eventos"];
+  const tabs = ["Grupos", "Eventos"];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -19,7 +16,7 @@ const Dashboard = () => {
         <LogOutButton />
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mt-5 border-b-2 border-gray-300">
+      <div className="grid grid-cols-2 gap-3 mt-5 border-b-2 border-gray-300">
         {tabs.map((tab) => (
           <div key={tab}>
             <button
@@ -36,35 +33,27 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="mt-5">
-        {activeTab === "Usuarios" && (
+      <div className="mt-8">
+        {/* {activeTab === "Grupos" && (
           <Link to="/register">
             <button className="cursor-pointer mb-5 rounded-md border border-green-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-green-600 hover:text-white hover:bg-green-800 hover:border-green-800 focus:text-white focus:bg-green-800 focus:border-green-800 active:border-green-800 active:text-white active:bg-green-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
               Agregar usuario
             </button>
           </Link>
         )}
-        {activeTab === "Grupos" && (
+        {activeTab === "Eventos" && (
           <Link to="/register-group">
             <button className="cursor-pointer mb-5 rounded-md border border-green-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-green-600 hover:text-white hover:bg-green-800 hover:border-green-800 focus:text-white focus:bg-green-800 focus:border-green-800 active:border-green-800 active:text-white active:bg-green-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
               Crear grupo
             </button>
           </Link>
-        )}
-        {activeTab === "Tipos de eventos" && (
-          <Link to="/register-event-type">
-            <button className="cursor-pointer mb-5 rounded-md border border-green-300 py-2 px-4 text-center text-sm transition-all shadow-sm hover:shadow-lg text-green-600 hover:text-white hover:bg-green-800 hover:border-green-800 focus:text-white focus:bg-green-800 focus:border-green-800 active:border-green-800 active:text-white active:bg-green-800 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
-              Crear tipo de evento
-            </button>
-          </Link>
-        )}
+        )} */}
 
-        {activeTab === "Usuarios" && <UserList />}
-        {activeTab === "Grupos" && <GroupList buttonAvailable={true} />}
-        {activeTab === "Tipos de eventos" && <EventTypesList />}
+        {activeTab === "Grupos" && <GroupList isGroupAdmin={true} />}
+        {activeTab === "Eventos" && <p>Mis eventos</p>}
       </div>
     </div>
   )
 }
 
-export default Dashboard
+export default DashboardGroup

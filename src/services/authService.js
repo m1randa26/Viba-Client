@@ -10,5 +10,9 @@ export const authService = {
     login: async (userData) => {
         const response = await axios.post(`${API_URL}/auth/signin`, userData);
         return response.data;
+    },
+    logout: () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
     }
 }

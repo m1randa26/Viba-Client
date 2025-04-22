@@ -21,7 +21,7 @@ export const useFormLogin = (navigate) => {
 
     const validateForm = () => {
         const newErrors = {};
-        
+
         // validar email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!formData.email.trim()) {
@@ -49,7 +49,7 @@ export const useFormLogin = (navigate) => {
         }
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setIsLoading(true);
@@ -64,11 +64,21 @@ export const useFormLogin = (navigate) => {
         try {
             const response = await authService.login(formData);
             setIsSuccess(true);
-            
+
+            localStorage.setItem('userId', response.data.user.idUser);
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('role', response.data.user.role.id_role);
+            localStorage.setItem('roleName', response.data.user.role.nombre);
             resetForm();
-            navigate("/dashboard");
+
+            const role_name = response.data.role.nombre;
+
+            if (role_name === "ADMIN_ROLE") {
+                navigate("/dashboard");
+            } else if (role_name === "ADMIN_GROUP_ROLE") {
+                navigate("/dashboard-group")
+            }
+
         } catch (error) {
             console.log("Error en el login: ", error.status);
             setErrors({ general: "Ocurrió un error" });
