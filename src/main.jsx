@@ -12,6 +12,7 @@ import RegisterGroup from './pages/admin/RegisterGroup.jsx'
 import RegisterEventType from './pages/admin/RegisterEventType.jsx'
 import DashboardGroup from './pages/grupoAdmin/DashboardGroup'
 import MemberAssignmentForm from './pages/grupoAdmin/MemberAssignmentForm.jsx'
+import DashboardMember from './pages/member/DashboardMember.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -41,6 +42,12 @@ createRoot(document.getElementById('root')).render(
           <Route path='/dashboard-group' element={<DashboardGroup />} />
           <Route path='/member-assignment/:groupId' element={<MemberAssignmentForm />} />
         </Route>
+
+        {/* Rutas para member */}
+        <Route element={<ProtectedRoute allowedRoles={[3]} />}>
+          <Route path='/dashboard-member' element={< DashboardMember/>} />
+        </Route>
+       
 
       </Routes>
     </BrowserRouter>
