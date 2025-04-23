@@ -36,7 +36,6 @@ const UserList = ({ isGroupAdmin = false, groupId }) => {
                         user => !assignedUserIds.includes(user.idUser)
                     );
                 }
-
                 setUsers(fetchedUsers);
             } catch (error) {
                 console.log("Error:", error);

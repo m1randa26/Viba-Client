@@ -12,6 +12,7 @@ import RegisterGroup from './pages/admin/RegisterGroup.jsx'
 import RegisterEventType from './pages/admin/RegisterEventType.jsx'
 import DashboardGroup from './pages/grupoAdmin/DashboardGroup'
 import MemberAssignmentForm from './pages/grupoAdmin/MemberAssignmentForm.jsx'
+import PageNotFound from './pages/PageNotFound.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -42,6 +43,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/member-assignment' element={<MemberAssignmentForm />} />
         </Route>
 
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
