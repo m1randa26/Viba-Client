@@ -13,6 +13,7 @@ import RegisterEventType from './pages/admin/RegisterEventType.jsx'
 import DashboardGroup from './pages/grupoAdmin/DashboardGroup'
 import MemberAssignmentForm from './pages/grupoAdmin/MemberAssignmentForm.jsx'
 import PageNotFound from './pages/PageNotFound.jsx'
+import EventForm from './components/EventForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -41,6 +42,8 @@ createRoot(document.getElementById('root')).render(
         <Route element={<ProtectedRoute allowedRoles={[2]} />}>
           <Route path='/dashboard-group' element={<DashboardGroup />} />
           <Route path='/member-assignment' element={<MemberAssignmentForm />} />
+          <Route path="/create-event" element={<EventForm />} />
+          <Route path="/edit-event/:id" element={<EventForm />} />
         </Route>
 
         <Route path='*' element={<PageNotFound />} />
