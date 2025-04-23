@@ -14,7 +14,6 @@ const EventTypesList = () => {
       try {
         const response = await eventService.getEventTypes();
         setEventTypes(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.log("Error: ", error);
       } finally {

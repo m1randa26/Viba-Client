@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { bitacoraService } from '../services/bitacoraService';
-import AuditLogTable from './AuditLogTable';
+import { bitacoraService } from '../../services/bitacoraService';
+import AuditLogTable from '../../components/AuditLogTable';
 
 const Bitacora = () => {
 

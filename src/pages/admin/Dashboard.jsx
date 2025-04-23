@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import GroupList from "../../components/GroupList";
 import EventTypesList from "../../components/EventTypesList";
 import LogOutButton from "../../components/LogOutButton";
-import Bitacora from "../../components/Bitacora";
+import Bitacora from "./Bitacora";
 
 const Dashboard = () => {
 
