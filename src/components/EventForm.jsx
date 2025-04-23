@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Input from "./Input";
 
@@ -18,7 +18,8 @@ const EventForm = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { id } = useParams();
+  const location = useLocation();
+  const id = location.state?.event_id;
   const navigate = useNavigate();
   const isEditMode = Boolean(id);
 
@@ -97,18 +98,15 @@ const EventForm = () => {
         group: { idGroup: groupId }
       };
 
-<<<<<<< HEAD
-=======
       if (!/^[\w\sáéíóúÁÉÍÓÚñÑ.,()-]+$/.test(formData.title)) {
         return Swal.fire({
           icon: "warning",
           title: "Título inválido",
           text: "El título solo debe contener letras, números y signos permitidos como (, . -).",
-          confirmButtonColor: "#F59E0B", // amarillo
+          confirmButtonColor: "#F59E0B",
         });
       }
   
->>>>>>> origin/Eliam
       if (isEditMode) {
         await axios.put(`http://localhost:8080/api/events/${id}`, payload, {
           headers: {
@@ -121,7 +119,7 @@ const EventForm = () => {
           icon: "success",
           title: "¡Evento actualizado!",
           text: "El evento se actualizó correctamente.",
-          confirmButtonColor: "#10B981", // verde
+          confirmButtonColor: "#10B981",
         });
       } else {
         await axios.post("http://localhost:8080/api/events/", payload, {
@@ -145,7 +143,7 @@ const EventForm = () => {
         icon: "error",
         title: "Error",
         text: err.response?.data?.message || "Ocurrió un error inesperado.",
-        confirmButtonColor: "#EF4444", // rojo
+        confirmButtonColor: "#EF4444",
       });
     }
   };

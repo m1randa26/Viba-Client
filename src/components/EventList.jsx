@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const EventList = ({ isGroupAdmin }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
@@ -39,7 +41,11 @@ const EventList = ({ isGroupAdmin }) => {
     }
   };
   
-  
+  const handleEdit = (id) => {
+    navigate("/edit-event", {
+      state: { event_id: id }
+    });
+  }
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -96,7 +102,7 @@ const EventList = ({ isGroupAdmin }) => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{event.group?.name}</td>
                 {isGroupAdmin && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <Link to={`/edit-event/${event.id_event}`} className="text-green-600 hover:text-green-900 mr-3">Editar</Link>
+                    <Link onClick={() => handleEdit(event.id_event)} className="text-green-600 hover:text-green-900 mr-3">Editar</Link>
                     <Link onClick={() => handleDelete(event.id_event)} className="text-red-600 hover:text-red-900 mr-3">Eliminar</Link>
                   </td>
                 )}

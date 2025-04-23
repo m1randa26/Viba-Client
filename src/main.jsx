@@ -43,7 +43,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/dashboard-group' element={<DashboardGroup />} />
           <Route path='/member-assignment' element={<MemberAssignmentForm />} />
           <Route path="/create-event" element={<EventForm />} />
-          <Route path="/edit-event/:id" element={<EventForm />} />
+          <Route path="/edit-event" element={<EventForm />} />
         </Route>
 
         <Route path='*' element={<PageNotFound />} />
