@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import Input from "./Input";
 
 
 const EventForm = () => {
@@ -51,9 +52,11 @@ const EventForm = () => {
             title: eventData.title,
             date: eventData.date,
             status: eventData.status,
-            eventType: eventData.eventType.id,
-            group: eventData.group.id
+            eventType: eventData.eventType.id_event_type,
+            group: eventData.group.idGroup
           });
+          
+          
         }
       } catch (err) {
         setError(err.message);
@@ -64,6 +67,8 @@ const EventForm = () => {
 
     fetchData();
   }, [id, isEditMode]);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,6 +97,18 @@ const EventForm = () => {
         group: { idGroup: groupId }
       };
 
+<<<<<<< HEAD
+=======
+      if (!/^[\w\sáéíóúÁÉÍÓÚñÑ.,()-]+$/.test(formData.title)) {
+        return Swal.fire({
+          icon: "warning",
+          title: "Título inválido",
+          text: "El título solo debe contener letras, números y signos permitidos como (, . -).",
+          confirmButtonColor: "#F59E0B", // amarillo
+        });
+      }
+  
+>>>>>>> origin/Eliam
       if (isEditMode) {
         await axios.put(`http://localhost:8080/api/events/${id}`, payload, {
           headers: {
@@ -150,7 +167,8 @@ const EventForm = () => {
             <label htmlFor="title" className="block text-sm font-medium text-gray-700">
               Título del Evento
             </label>
-            <input
+            <Input
+              max={20}
               type="text"
               id="title"
               name="title"
@@ -171,6 +189,7 @@ const EventForm = () => {
               name="date"
               value={formData.date}
               onChange={handleChange}
+              min={new Date().toISOString().split("T")[0]}
               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               required
             />
@@ -208,7 +227,7 @@ const EventForm = () => {
             >
               <option value="">Selecciona un tipo</option>
               {eventTypes.map((type) => (
-                <option key={type.id} value={type.id}>{type.name}</option>
+                <option key={type.id_event_type} value={type.id_event_type}>{type.name}</option>
               ))}
             </select>
           </div>
@@ -227,7 +246,7 @@ const EventForm = () => {
             >
               <option value="">Selecciona un grupo</option>
               {groups.map((group) => (
-                <option key={group.id} value={group.id}>{group.name}</option>
+                <option key={group.idGroup} value={group.idGroup}>{group.name}</option>
               ))}
             </select>
           </div>
