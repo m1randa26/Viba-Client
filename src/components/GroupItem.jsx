@@ -1,11 +1,18 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 const GroupItem = ({ group, onDelete, button = false, isGroupAdmin = false }) => {
+
+    const navigate = useNavigate();
 
     const handleDelete = () => {
         if (window.confirm("¿Desea eliminar el grupo?")) {
             onDelete(group.idGroup);
         }
+    }
+
+    const handleAssign = () => {
+        navigate(`/member-assignment/${group.idGroup}`)
     }
 
     return (
@@ -87,6 +94,7 @@ const GroupItem = ({ group, onDelete, button = false, isGroupAdmin = false }) =>
             {isGroupAdmin && (
                 <div className="px-4 pb-4">
                     <button
+                        onClick={handleAssign}
                         className="w-full flex items-center justify-center rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
                         type="button"
                     >

@@ -1,6 +1,5 @@
-import React from 'react'
 
-const UserItem = ({ user, onDelete }) => {
+const UserItem = ({ user, onDelete, isGroupAdmin, onSelect, isSelected }) => {
 
     const validateRole = (rol) => {
         let role = '';
@@ -22,12 +21,16 @@ const UserItem = ({ user, onDelete }) => {
         }
     }
 
+    const handleCheckboxChange = (e) => {
+        onSelect(user.idUser, e.target.checked);
+    };
+
     return (
         <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200 hover:shadow-md transition-shadow duration-300 mb-4">
             <div className="flex items-center p-4">
                 {/* Avatar del usuario */}
                 <div className="flex-shrink-0 h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-blue-700 font-bold text-lg">{user.name.charAt(0)}</span>
+                    <span className="text-blue-700 font-bold text-lg">{user.name.charAt(0).toUpperCase()}</span>
                 </div>
 
                 {/* Información del usuario */}
@@ -72,16 +75,29 @@ const UserItem = ({ user, onDelete }) => {
                         </div>
                     </div>
 
-                    <button
-                        onClick={handleDelete}
-                        className="flex items-center justify-center rounded-md border border-red-300 py-1.5 px-3 text-sm font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200"
-                        type="button"
-                    >
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                        </svg>
-                        Eliminar
-                    </button>
+                    {!isGroupAdmin && (
+                        <button
+                            onClick={handleDelete}
+                            className="flex items-center justify-center rounded-md border border-red-300 py-1.5 px-3 text-sm font-medium text-red-600 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors duration-200"
+                            type="button"
+                        >
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Eliminar
+                        </button>
+                    )}
+                    {isGroupAdmin && (
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={handleCheckboxChange}
+                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                            />
+                            <label className="ml-2 text-sm text-gray-700">Asignar</label>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
