@@ -3,8 +3,12 @@ import { userService } from "../services/userService";
 import UserItem from "./UserItem";
 import { toast, ToastContainer } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
+import { memberService } from "../services/memberService.js";
+import { useNavigate } from "react-router-dom";
 
-const UserList = ({ isGroupAdmin = false }) => {
+const UserList = ({ isGroupAdmin = false, groupId }) => {
+
+    const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +19,6 @@ const UserList = ({ isGroupAdmin = false }) => {
             try {
                 const response = await userService.getAll();
                 let fetchedUsers = response.data.data;
-                console.log(fetchedUsers);
                 const userRole = localStorage.getItem("roleName");
 
                 if (userRole === "ADMIN_GROUP_ROLE") {
@@ -23,16 +26,28 @@ const UserList = ({ isGroupAdmin = false }) => {
                         user => user.role.nombre === "MEMBER_ROLE"
                     );
                 }
+
+                if (groupId) {
+                    const membersRes = await memberService.getMembers(groupId);
+
+                    const assignedUserIds = membersRes.data.data.map(m => m.user.idUser);
+
+                    fetchedUsers = fetchedUsers.filter(
+                        user => !assignedUserIds.includes(user.idUser)
+                    );
+                }
+
                 setUsers(fetchedUsers);
             } catch (error) {
                 console.log("Error:", error);
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
         fetchUsers();
-    }, []);
+    }, [groupId]);
+
 
     const handleDeleteUser = async (id) => {
 
@@ -55,31 +70,56 @@ const UserList = ({ isGroupAdmin = false }) => {
         });
     };
 
-    const handleAssign = () => {
-        console.log("Usuarios seleccionados:", selectedUsers);
-        // Aquí iría el llamado a la API para asignar al grupo
-        toast.success("Usuarios asignados (simulado)");
+    const handleAssign = async () => {
+
+        try {
+            for (const userId of selectedUsers) {
+                const payload = {
+                    user: {
+                        idUser: userId
+                    },
+                    group: {
+                        idGroup: groupId
+                    }
+                };
+
+                await memberService.createMember(payload);
+            }
+            setSelectedUsers([]);
+            navigate("/dashboard-group");
+        } catch (error) {
+            console.log("Error: ", error);
+            toast.error("Error al asignar usuarios");
+        }
     };
 
     if (isLoading) return <LoadingSpinner />
 
     return (
         <ul>
-            {users.map(user => (
-                <UserItem
-                    key={user.idUser}
-                    user={user}
-                    onDelete={handleDeleteUser}
-                    isGroupAdmin={isGroupAdmin}
-                    onSelect={handleSelect}
-                    isSelected={selectedUsers.includes(user.idUser)}
-                />
-            ))}
+            {users.length === 0 ? (
+                <p className="text-center text-gray-500 mt-4">No hay usuarios disponibles para asignar.</p>
+            ) : (
+                users.map(user => (
+                    <UserItem
+                        key={user.idUser}
+                        user={user}
+                        onDelete={handleDeleteUser}
+                        isGroupAdmin={isGroupAdmin}
+                        onSelect={handleSelect}
+                        isSelected={selectedUsers.includes(user.idUser)}
+                    />
+                ))
+            )}
             {isGroupAdmin && (
                 <div className="mt-5 flex justify-end">
                     <button
                         onClick={handleAssign}
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                        disabled={selectedUsers.length === 0}
+                        className={`px-4 py-2 rounded transition ${selectedUsers.length === 0
+                            ? 'bg-blue-300 cursor-not-allowed'
+                            : 'bg-blue-600 hover:bg-blue-700 text-white'
+                            }`}
                     >
                         Asignar al grupo
                     </button>

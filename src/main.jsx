@@ -39,7 +39,7 @@ createRoot(document.getElementById('root')).render(
         {/* Rutas para admin group */}
         <Route element={<ProtectedRoute allowedRoles={[2]} />}>
           <Route path='/dashboard-group' element={<DashboardGroup />} />
-          <Route path='/member-assignment/:groupId' element={<MemberAssignmentForm />} />
+          <Route path='/member-assignment' element={<MemberAssignmentForm />} />
         </Route>
 
       </Routes>

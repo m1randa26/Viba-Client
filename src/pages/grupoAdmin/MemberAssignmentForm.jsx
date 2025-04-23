@@ -1,14 +1,26 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserList from "../../components/UserList"
+import { useEffect } from "react";
 
 
 const MemberAssignmentForm = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const groupId = location.state?.groupId;
 
     const handleGoBack = () => {
         navigate("/dashboard-group", { replace: true });
     };
+
+    // Validamos que exista un ID
+    useEffect(() => {
+        if (!groupId) {
+            // Redirigir si no hay ID (seguridad)
+            navigate("/dashboard-group", { replace: true });
+        }
+    }, [groupId, navigate]);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
@@ -30,7 +42,7 @@ const MemberAssignmentForm = () => {
 
             {/* Formulario */}
             <div className="w-full max-w-3xl mt-5">
-                <UserList isGroupAdmin={true} />
+                <UserList isGroupAdmin={true} groupId={groupId} />
             </div>
         </div>
     )
