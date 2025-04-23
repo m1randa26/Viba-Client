@@ -12,7 +12,7 @@ const EventForm = () => {
     eventType: "",
     group: ""
   });
-  
+
   const [eventTypes, setEventTypes] = useState([]);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,21 +25,21 @@ const EventForm = () => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        
+
         const typesResponse = await axios.get("http://localhost:8080/api/event-types/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setEventTypes(typesResponse.data.data);
-        
+
         const groupsResponse = await axios.get("http://localhost:8080/api/groups/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setGroups(groupsResponse.data.data);
-        
+
         if (isEditMode) {
           const eventResponse = await axios.get(`http://localhost:8080/api/events/${id}`, {
             headers: {
@@ -76,14 +76,14 @@ const EventForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const token = localStorage.getItem("token");
 
       const eventTypeId = eventTypes[0]?.id_event_type;
       const groupId = groups[0]?.idGroup;
 
-  
+
       const payload = {
         title: formData.title,
         date: formData.date,
@@ -91,7 +91,7 @@ const EventForm = () => {
         eventType: { id_event_type: eventTypeId },
         group: { idGroup: groupId }
       };
-  
+
       if (isEditMode) {
         await axios.put(`http://localhost:8080/api/events/${id}`, payload, {
           headers: {
@@ -99,7 +99,7 @@ const EventForm = () => {
             "Content-Type": "application/json",
           },
         });
-  
+
         await Swal.fire({
           icon: "success",
           title: "¡Evento actualizado!",
@@ -113,7 +113,7 @@ const EventForm = () => {
             "Content-Type": "application/json",
           },
         });
-  
+
         await Swal.fire({
           icon: "success",
           title: "¡Evento creado!",
@@ -121,7 +121,7 @@ const EventForm = () => {
           confirmButtonColor: "#10B981",
         });
       }
-  
+
       navigate("/dashboard-group");
     } catch (err) {
       Swal.fire({
@@ -132,9 +132,9 @@ const EventForm = () => {
       });
     }
   };
-  
 
-  
+
+
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -143,7 +143,7 @@ const EventForm = () => {
       <h1 className="font-semibold text-3xl mb-5">
         {isEditMode ? "Editar Evento" : "Crear Nuevo Evento"}
       </h1>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>

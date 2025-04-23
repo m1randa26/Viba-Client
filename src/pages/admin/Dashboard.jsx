@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import GroupList from "../../components/GroupList";
 import EventTypesList from "../../components/EventTypesList";
 import LogOutButton from "../../components/LogOutButton";
+import Bitacora from "../../components/Bitacora";
 
 const Dashboard = () => {
 
   const [activeTab, setActiveTab] = useState("Usuarios");
 
-  const tabs = ["Usuarios", "Grupos", "Tipos de eventos"];
+  const tabs = ["Usuarios", "Grupos", "Tipos de eventos", "Bitácora"];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -19,7 +20,7 @@ const Dashboard = () => {
         <LogOutButton />
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mt-5 border-b-2 border-gray-300">
+      <div className="grid grid-cols-4 gap-3 mt-5 border-b-2 border-gray-300">
         {tabs.map((tab) => (
           <div key={tab}>
             <button
@@ -62,6 +63,7 @@ const Dashboard = () => {
         {activeTab === "Usuarios" && <UserList />}
         {activeTab === "Grupos" && <GroupList buttonAvailable={true} />}
         {activeTab === "Tipos de eventos" && <EventTypesList />}
+        {activeTab === "Bitácora" && <Bitacora />}
       </div>
     </div>
   )
