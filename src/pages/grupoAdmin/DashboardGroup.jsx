@@ -2,6 +2,7 @@ import { useState } from "react";
 import LogOutButton from "../../components/LogOutButton";
 import { Link } from "react-router-dom";
 import GroupList from "../../components/GroupList";
+import EventList from "../../components/EventList";
 
 const DashboardGroup = () => {
 
@@ -50,7 +51,7 @@ const DashboardGroup = () => {
         )} */}
 
         {activeTab === "Grupos" && <GroupList isGroupAdmin={true} />}
-        {activeTab === "Eventos" && <p>Mis eventos</p>}
+        {activeTab === "Eventos" && <EventList isGroupAdmin={true} />}
       </div>
     </div>
   )
