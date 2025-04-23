@@ -77,6 +77,8 @@ export const useFormLogin = (navigate) => {
                 navigate("/dashboard");
             } else if (role_name === "ADMIN_GROUP_ROLE") {
                 navigate("/dashboard-group")
+            }else if (role_name === "MEMBER_ROLE") {
+                navigate("/dashboard-member")
             }
 
         } catch (error) {
