@@ -47,20 +47,28 @@ export const useFormGroup = (navigate) => {
     const validateForm = () => {
         const newErrors = {};
 
+        const regex = /^[A-Za-z]+$/;
+
         if (!formData.name.trim()) {
             newErrors.name = "El nombre del grupo es obligatorio";
+        } else if (!regex.test(formData.name)) {
+            newErrors.name = "El nombre no es válido";
         } else if (formData.name.trim().length < 5) {
             newErrors.name = "El nombre debe tener al menos 5 caracteres";
         }
 
         if (!formData.municipality.trim()) {
             newErrors.municipality = "El municipio es obligatorio";
+        } else if (!regex.test(formData.municipality)) {
+            newErrors.municipality = "El municipio no es válido";
         } else if (formData.municipality.trim().length < 5) {
             newErrors.municipality = "El municipio debe tener al menos 5 caracteres";
         }
 
         if (!formData.colony.trim()) {
             newErrors.colony = "La colonia es obligatoria";
+        } else if (!regex.test(formData.colony)) {
+            newErrors.colony = "La colonia no es válido";
         } else if (formData.colony.trim().length < 5) {
             newErrors.colony = "La colonia debe tener al menos 5 caracteres";
         }

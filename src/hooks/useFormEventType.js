@@ -21,8 +21,12 @@ export const useFormEventType = (navigate) => {
     const validateForm = () => {
         const newErrors = {};
 
+        const regex = /^[A-Za-z]+$/
+
         if (!formData.name.trim()) {
             newErrors.name = "El nombre del evento es obligatorio";
+        } else if (!regex.test(formData.name)) {
+            newErrors.name = "El nombre no es válido";
         } else if (formData.name.trim().length < 5) {
             newErrors.name = "El nombre debe tener al menos 5 caracteres";
         }
@@ -30,7 +34,7 @@ export const useFormEventType = (navigate) => {
         setErrors(newErrors);
         console.log("Errores encontrados: ", newErrors);
         return Object.keys(newErrors).length === 0;
-        
+
     }
 
     const handleChange = (e) => {
@@ -42,7 +46,7 @@ export const useFormEventType = (navigate) => {
         }
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         setIsLoading(true);

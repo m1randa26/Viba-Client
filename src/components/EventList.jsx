@@ -21,7 +21,7 @@ const EventList = ({ isGroupAdmin }) => {
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
     });
-  
+
     if (result.isConfirmed) {
       try {
         const token = localStorage.getItem("token");
@@ -30,9 +30,9 @@ const EventList = ({ isGroupAdmin }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
         setEvents(events.filter((event) => event.id_event !== id));
-  
+
         Swal.fire("¡Eliminado!", "El evento ha sido eliminado.", "success");
       } catch (err) {
         console.error(err);
@@ -40,7 +40,7 @@ const EventList = ({ isGroupAdmin }) => {
       }
     }
   };
-  
+
   const handleEdit = (id) => {
     navigate("/edit-event", {
       state: { event_id: id }
@@ -102,7 +102,9 @@ const EventList = ({ isGroupAdmin }) => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{event.group?.name}</td>
                 {isGroupAdmin && (
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <Link onClick={() => handleEdit(event.id_event)} className="text-green-600 hover:text-green-900 mr-3">Editar</Link>
+                    <button onClick={() => handleEdit(event.id_event)} className="text-green-600 hover:text-green-900 mr-3">
+                      Editar
+                    </button>
                     <Link onClick={() => handleDelete(event.id_event)} className="text-red-600 hover:text-red-900 mr-3">Eliminar</Link>
                   </td>
                 )}

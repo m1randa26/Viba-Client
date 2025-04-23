@@ -28,8 +28,11 @@ export const useForm = (navigate) => {
         const newErrors = {};
 
         // Valida que el nombre no este vacio y su longitud sea minimo de 8 caracteres
+        const nameRegex = /^[A-Za-z]+$/
         if (!formData.name.trim()) {
             newErrors.name = "El nombre es obligatorio";
+        } else if (!nameRegex.test(formData.name)) {
+            newErrors.name = "El nombre no es válido";
         } else if (formData.name.trim().length < 5) {
             newErrors.name = "El nombre debe tener al menos 5 caracteres";
         }
